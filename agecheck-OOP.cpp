@@ -1,22 +1,31 @@
-// Needs to be cleaned up a bit, but works!
+// Works more or less. 
+// Need to learn how to verify types in C++
+
 
 #include <iostream>
 using namespace std;
 
-bool isTrue(string a) {
-	if (a=="y") { return true; }
-	else { return false; }
-}
 
 class User {
 	int age;
 	bool confidence;
+
+
+	bool isTrue(string a) {
+		if (a=="y") { return true; }
+		else { return false; }
+	}
+
+	bool isInt(){		
+
+	}
 	public:
 	
 	void setAge(int i) { age = i; }
 	int getAge() { return age; }	
 
 	void setConfidence(bool i) { confidence = i; }
+	void setConfidence(string i) { confidence = isTrue(i); }
 	bool getConfidence() { return confidence; }
 
 	
@@ -35,15 +44,12 @@ class User {
 	User (int a) { // Defines user with age and assumes confidence.
 		setAge(a);
 		setConfidence(true);
-//		cout << "(creating user with assumed confidence)\n";
 	}
 	User (int a, bool b) { // Defines user with age and confidence. DOES NOT VERIFY.
 		setAge(a);
 		setConfidence(b);
-//		cout << "(creating a user with age and confidence)\n";
 	}
 	User () {
-//		cout << "(creating a user from scratch...)\n";
 		setAge(0);
 		setConfidence(false);
 		askAge();
@@ -56,7 +62,6 @@ class User {
 	void verifyAge() {
 		
 		bool verify = getConfidence();
-//		cout << "Confidence: " << verify << "\n";
 		
 		if(verify) {
 			cout << "Thats great!\nAge Confirmed.\n";
@@ -67,21 +72,14 @@ class User {
 			cout << "Are you sure you're "<<getAge()<<" years old?\n";
 			string res;
 			cin >> res;
-//			cout << isTrue(res) << "\n";
-			setConfidence(isTrue(res));
-			// Recursively call me
-	//		cout << "Do you want to recurse?";
-	//		string recurse;
-	//		cin >> recurse;
-	//		if(isTrue(recurse)){ verifyAge();} else { cout << "Done." ;}
-			//cout << "RECURSING!\n";
+			setConfidence(res);
+			if(!getConfidence()) { askAge(); } // If they're still unsure, ask age.
+
 			verifyAge();
 		}
 	}
 };
 
-
-// Define functions
 
 
 
@@ -90,11 +88,16 @@ class User {
 int main() {
 
 	User user1 = User();
+	cout << "#################################";
 	User user2 = User(7);
+	cout << "#################################";
 	User user3 = User(6,true);
 
-	cout << "User 1 is "<<user2.getAge()<<"\n";
 
+	cout << "User 1 is "<<user1.getAge()<<"\n";
+	cout << "User 2 is "<<user2.getAge()<<"\n";
+	cout << "User 3 is "<<user3.getAge()<<"\n";
+	
 	return 0;
 }
 
