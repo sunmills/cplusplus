@@ -3,8 +3,12 @@
 
 
 #include <iostream>
+#include <string>
+#include <sstream>
+
 using namespace std;
 
+string input = " ";
 
 class User {
 	int age;
@@ -36,8 +40,14 @@ class User {
 
 		int i;			
 		cout << "Please enter your age: ";
-		cin >> i;
-		setAge(i);
+		getline(cin,input);
+		stringstream myStream(input);
+		if(myStream >> i)
+			setAge(i);
+		else {
+			cout << "Not a good answer. Try again.\n";
+			askAge();
+		}
 	}
 
 	// CONSTRUCT ME!
@@ -58,7 +68,8 @@ class User {
 
 	//	Lets give the user an opportunity to verify a value.
 	//		Ask them if its right, then check if they agreed or not.
-	//		If not, call myself recursively until they get it right.
+	//		If not, call myself recursively until they get it right,
+	//			while asking them for a new value..
 	void verifyAge() {
 		
 		bool verify = getConfidence();
@@ -71,10 +82,9 @@ class User {
 		else {
 			cout << "Are you sure you're "<<getAge()<<" years old?\n";
 			string res;
-			cin >> res;
+			getline(cin,res);
 			setConfidence(res);
 			if(!getConfidence()) { askAge(); } // If they're still unsure, ask age.
-
 			verifyAge();
 		}
 	}
