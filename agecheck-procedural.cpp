@@ -1,6 +1,10 @@
 #include <iostream>
+#include <string>
+#include <sstream>
+
 using namespace std;
 
+string a = " ";
 // Procural approach to asking a user their age.
 
 // Define functions
@@ -10,9 +14,17 @@ using namespace std;
 int askAge() {
 		
 	int i;
-	cout << "Please enter your age: ";
-	cin >> i;
-	return i;
+  while(true){
+
+    cout << "Please enter your age: ";
+
+    getline(cin,a);
+    stringstream x(a);
+
+    if(x>>i) break;
+    cout << "Invalid.\n"; 
+  }
+  return i;
 }
 
 //	Lets give the user an opportunity to verify a value.
@@ -23,9 +35,9 @@ bool verifyAge(int age) {
 	
 	cout << "Are you sure you're "<<age<<" years old?\n";
 	bool verify;
-	cin >> verify;
-
-	if(verify) { cout << "Thats great!\n"; }
+  getline(cin,a);
+  if(a=="yes"||a=="y") verify = 1;
+	if(verify) cout << "Thats great!\n";
 	else {
 		// Recursively call me
 		verifyAge(askAge());

@@ -1,7 +1,3 @@
-// Works more or less. 
-// Need to learn how to verify types in C++
-
-
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -98,9 +94,7 @@ class User {
 int main() {
 
 	User user1 = User();
-	cout << "#################################";
 	User user2 = User(7);
-	cout << "#################################";
 	User user3 = User(6,true);
 
 
